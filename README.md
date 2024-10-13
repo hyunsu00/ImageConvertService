@@ -39,7 +39,7 @@ $ go mod tidy
 
 ### Go 빌드
 
-`$ go build -o hellowolrd`
+`$ go build -o imgconv`
 
 ### 모든 캐쉬 지우기
 
