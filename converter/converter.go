@@ -13,14 +13,15 @@ import (
 	"golang.org/x/image/tiff"    // TIFF 이미지를 디코딩하고 인코딩
 )
 
+// Converter는 이미지 변환을 수행하는 구조체입니다.
 type Converter struct{}
 
-// NewConverter는 Converter의 새 인스턴스를 생성합니다.
+// Converter 생성자
 func NewConverter() *Converter {
 	return &Converter{}
 }
 
-// 변환은 이미지를 입력 형식에서 출력 형식으로 변환합니다.
+// Convert 메서드는 입력 이미지 데이터를 디코딩하고, 지정된 출력 형식으로 인코딩하여 변환합니다.
 func (c *Converter) Convert(inputFormat, outputFormat string, imageData []byte) ([]byte, error) {
 	img, err := c.decode(inputFormat, imageData)
 	if err != nil {

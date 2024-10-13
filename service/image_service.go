@@ -8,13 +8,11 @@ import (
 
 type ImageService struct {
 	converter *converter.Converter
-	semaphore chan struct{}
 }
 
 func NewImageService() *ImageService {
 	return &ImageService{
 		converter: converter.NewConverter(),
-		semaphore: make(chan struct{}, 10), // 동시에 처리할 수 있는 최대 요청 수
 	}
 }
 
@@ -30,9 +28,6 @@ func (s *ImageService) ConvertImage(inputFormat, outputFormat, imageData string)
 	if err != nil {
 		return "", fmt.Errorf("이미지 데이터 디코딩 오류: %v", err)
 	}
-
-	s.semaphore <- struct{}{}        // 세마포어 획득
-	defer func() { <-s.semaphore }() // 세마포어 해제
 
 	convertedData, err := s.converter.Convert(inputFormat, outputFormat, decodedData)
 	if err != nil {
