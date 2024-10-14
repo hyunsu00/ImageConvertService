@@ -34,7 +34,7 @@ func (c *Converter) Convert(inputFormat, outputFormat string, imageData []byte) 
 func (c *Converter) decode(format string, data []byte) (image.Image, error) {
 	reader := bytes.NewReader(data)
 	switch format {
-	case "jpeg":
+	case "jpeg", "jpg":
 		return jpeg.Decode(reader)
 	case "png":
 		return png.Decode(reader)
@@ -60,7 +60,7 @@ func (c *Converter) encode(format string, img image.Image) ([]byte, error) {
 	var err error
 
 	switch format {
-	case "jpeg":
+	case "jpeg", "jpg":
 		err = jpeg.Encode(&buf, img, nil)
 	case "png":
 		err = png.Encode(&buf, img)
